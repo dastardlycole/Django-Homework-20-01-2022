@@ -1,5 +1,6 @@
 from django.http.response import HttpResponse
 from django.shortcuts import render
+from django.template import context
 from main.models import Registered_Users
 
 
@@ -39,9 +40,15 @@ def contact_us(request):
         request_data = dict(request.POST)
         request_data.pop('csrfmiddlewaretoken')
         data = {key:request_data.get(key)[0] for key in request_data}
+
         Registered_Users.objects.create(user_name = data['my_name'], user_email = data['my_email'], user_message = data['my_message'])
 
-    return render(request, "contact.html")
+    contacts = Registered_Users.objects.all()
+
+    my_context = {
+        "contacts" : contacts
+    }
+    return render(request, "contact.html", my_context)
 
 def about_us(request):
     return render(request, "about.html")    

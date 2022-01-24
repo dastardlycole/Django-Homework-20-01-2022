@@ -12,6 +12,26 @@ Contact Us
     <a href="https://www.linkedin.com/in/sarah-akan-738310222/">LinkedIn</a>
 </div>
 
+
+<br>
+<br>
+<div>
+    <p>You have {{ contacts.count }} contact message{{contacts.count | pluralize}}</p><br>
+
+    <ol>
+        {% for contact in contacts %}
+        <li>
+            {{contact.user_message}} by {{contact.user_name}} posted on {{contact.date_created}}
+        </li>
+        <br>
+
+        {% endfor %}
+
+    </ol>
+</div>
+<br>
+<br>
+
 <form action="." method="POST">
     {% csrf_token %}
     <div>
